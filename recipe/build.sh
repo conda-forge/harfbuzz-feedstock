@@ -3,6 +3,7 @@
 # Get rid of bad `defaults` .la files.
 rm -rf $PREFIX/lib/*.la
 
+export MAKEFLAGS=""
 
 if [ $(uname) == Darwin ]; then
   export CC=clang
@@ -22,6 +23,6 @@ bash configure --prefix=$PREFIX \
                --enable-static \
                $OPTS
 
-make
+make -j${CPU_COUNT}
 make check
 make install
