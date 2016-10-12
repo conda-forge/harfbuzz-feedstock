@@ -3,6 +3,7 @@
 # Get rid of bad `defaults` .la files.
 rm -rf $PREFIX/lib/*.la
 
+# Set in conda_forge_build_setup to `${MAKEFLAGS}` and that breaks the build here.
 export MAKEFLAGS=""
 
 if [ $(uname) == Darwin ]; then
@@ -23,6 +24,6 @@ bash configure --prefix=$PREFIX \
                --enable-static \
                $OPTS
 
-make -j${CPU_COUNT}
+make
 make check
 make install
