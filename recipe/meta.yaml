@@ -1,6 +1,6 @@
 {% set name = "harfbuzz" %}
-{% set version = "2.1.1" %}
-{% set sha256 = "83bf5d552df72c52969332f294cd97d8f6b46b77b41b61346ca56ebb81884e14" %}
+{% set version = "2.1.2" %}
+{% set sha256 = "18b70c2fa3c757361ba5e6185a64a59a00e1c1392b90ac21eccde09bacc6bcc1" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
