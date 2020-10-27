@@ -34,7 +34,7 @@ requirements:
     - graphite2
   run:
     - cairo
-    - glib
+    - libglib
     - freetype
     - icu
     - graphite2
