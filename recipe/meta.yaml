@@ -1,6 +1,6 @@
 {% set name = "harfbuzz" %}
-{% set version = "3.2.0" %}
-{% set sha256 = "41b38daa13ebdba39fae3b5fb2abbf5f9ccd9121bfa7f47b18d51aa733f80aad" %}
+{% set version = "3.3.0" %}
+{% set sha256 = "ef744baacaa3be6944b5c9df215a05e86401334f013da4837ad2e2c9f7b1248a" %}
 
 package:
   name: {{ name }}
