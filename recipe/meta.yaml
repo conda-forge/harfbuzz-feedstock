@@ -11,9 +11,14 @@ source:
   sha256: {{ sha256 }}
   patches:
     - gir-windows.patch  # [win]
+    # We don't ship static libraries, and having the Requires.Private
+    # Makes downstream packages depend on the development libraries of
+    # harfbuzz
+    # https://github.com/conda-forge/conda-forge.github.io/issues/1880
+    - remove_requires_private.patch
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # pretty excellent forward compatibility
     # https://abi-laboratory.pro/index.php?view=timeline&l=harfbuzz
