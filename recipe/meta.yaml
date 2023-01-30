@@ -54,6 +54,15 @@ test:
   requires:
     - pygobject
   commands:
+    # Just inspect for now
+    - echo harfbuzz.pc                                  # [unix]
+    - cat ${PREFIX}/lib/pkgconfig/harfbuzz.pc           # [unix]
+    - echo harfbuzz-gobject.pc                          # [unix]
+    - cat ${PREFIX}/lib/pkgconfig/harfbuzz-gobject.pc   # [unix]
+    - echo harfbuzz-icu.pc                              # [unix]
+    - cat ${PREFIX}/lib/pkgconfig/harfbuzz-icu.pc       # [unix]
+    - echo harfbuzz-subset.pc                           # [unix]
+    - cat ${PREFIX}/lib/pkgconfig/harfbuzz-subset.pc    # [unix]
     # Libraries/headers.
     {% set libs = [
         "harfbuzz-gobject",
