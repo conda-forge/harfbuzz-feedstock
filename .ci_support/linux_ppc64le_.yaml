@@ -25,7 +25,7 @@ freetype:
 glib:
 - '2'
 icu:
-- '73'
+- '75'
 target_platform:
 - linux-ppc64le
 zip_keys:
