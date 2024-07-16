@@ -65,13 +65,11 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
   export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-load.sh
 fi
 
+# NB: $MESON_ARGS sets buildtype, prefix, and libdir.
 meson setup builddir \
     ${MESON_ARGS} \
     "${meson_config_args[@]}" \
-    --buildtype=release \
     --default-library=both \
-    --prefix=$PREFIX \
-    -Dlibdir=lib \
     --wrap-mode=nofallback
 ninja -v -C builddir -j ${CPU_COUNT}
 ninja -C builddir install -j ${CPU_COUNT}
