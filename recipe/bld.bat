@@ -12,6 +12,7 @@ set "LIBRARY_PREFIX_M=%LIBRARY_PREFIX:\=/%"
 	--buildtype=release ^
 	--prefix=%LIBRARY_PREFIX_M% ^
 	--backend=ninja ^
+	-Dcpp_std=c++17 ^
 	-Dglib=enabled ^
 	-Dgobject=enabled ^
 	-Dcairo=enabled ^
