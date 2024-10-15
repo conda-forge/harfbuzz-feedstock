@@ -28,6 +28,8 @@ freetype:
 - '2'
 glib:
 - '2'
+harfbuzz:
+- '9'
 icu:
 - '75'
 target_platform:
