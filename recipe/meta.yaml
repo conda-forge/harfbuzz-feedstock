@@ -53,13 +53,7 @@ test:
     - pygobject
   commands:
     # Libraries/headers.
-    {% set libs = [
-        "harfbuzz-cairo",
-        "harfbuzz-gobject",
-        "harfbuzz-icu",
-        "harfbuzz-subset",
-        "harfbuzz"
-        ] %}
+    {% set libs = ["harfbuzz-cairo", "harfbuzz-gobject", "harfbuzz-icu", "harfbuzz-subset", "harfbuzz"] %}
     {% for lib in libs %}
     - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}    # [unix]
     - if not exist %PREFIX%\Library\bin\{{ lib }}.dll exit 1       # [win]
