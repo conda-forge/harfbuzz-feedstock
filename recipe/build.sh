@@ -3,9 +3,12 @@
 set -ex
 
 # necessary to ensure the gobject-introspection-1.0 pkg-config file gets found
-# meson needs this to determine where the g-ir-scanner script is located
+# meson uses PKG_CONFIG_PATH to search when not cross-compiling and
+# PKG_CONFIG_PATH_FOR_BUILD when cross-compiling,
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$BUILD_PREFIX/lib/pkgconfig
+export PKG_CONFIG_PATH_FOR_BUILD=$BUILD_PREFIX/lib/pkgconfig
 export PKG_CONFIG=$BUILD_PREFIX/bin/pkg-config
+
 # Make sure .gir files in $PREFIX are found
 export XDG_DATA_DIRS=${XDG_DATA_DIRS}:$PREFIX/share:$BUILD_PREFIX/share
 
