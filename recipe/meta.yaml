@@ -30,12 +30,14 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - cairo      # [build_platform != target_platform]
+    - expat      # [build_platform != target_platform]
     - glib       # [build_platform != target_platform]
     - freetype   # [build_platform != target_platform]
     - icu        # [build_platform != target_platform]
     - graphite2  # [build_platform != target_platform]
   host:
     - cairo
+    - expat  # need to name this explicitly to get the development files
     - glib
     - freetype
     - icu
