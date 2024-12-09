@@ -1,6 +1,6 @@
 {% set name = "harfbuzz" %}
-{% set version = "9.0.0" %}
-{% set sha256 = "b7e481b109d19aefdba31e9f5888aa0cdfbe7608fed9a43494c060ce1f8a34d2" %}
+{% set version = "10.1.0" %}
+{% set sha256 = "c758fdce8587641b00403ee0df2cd5d30cbea7803d43c65fddd76224f7b49b88" %}
 
 package:
   name: {{ name }}
@@ -13,7 +13,7 @@ source:
     - gir-windows.patch  # [win]
 
 build:
-  number: 1
+  number: 0
   run_exports:
     # pretty excellent forward compatibility
     # https://abi-laboratory.pro/index.php?view=timeline&l=harfbuzz
@@ -30,12 +30,14 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
     - cairo      # [build_platform != target_platform]
+    - expat      # [build_platform != target_platform]
     - glib       # [build_platform != target_platform]
     - freetype   # [build_platform != target_platform]
     - icu        # [build_platform != target_platform]
     - graphite2  # [build_platform != target_platform]
   host:
     - cairo
+    - expat  # need to name this explicitly to get the development files
     - glib
     - freetype
     - icu
@@ -51,13 +53,7 @@ test:
     - pygobject
   commands:
     # Libraries/headers.
-    {% set libs = [
-        "harfbuzz-cairo",
-        "harfbuzz-gobject",
-        "harfbuzz-icu",
-        "harfbuzz-subset",
-        "harfbuzz"
-        ] %}
+    {% set libs = ["harfbuzz-cairo", "harfbuzz-gobject", "harfbuzz-icu", "harfbuzz-subset", "harfbuzz"] %}
     {% for lib in libs %}
     - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}    # [unix]
     - if not exist %PREFIX%\Library\bin\{{ lib }}.dll exit 1       # [win]
