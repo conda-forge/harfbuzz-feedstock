@@ -26,22 +26,28 @@ requirements:
     - ninja
     - pkg-config
     - pthread-stubs
-    - {{ compiler('c') }}
+    - {{ compiler("c") }}
     - {{ stdlib("c") }}
-    - {{ compiler('cxx') }}
-    - cairo      # [build_platform != target_platform]
-    - expat      # [build_platform != target_platform]
-    - glib       # [build_platform != target_platform]
-    - freetype   # [build_platform != target_platform]
-    - icu        # [build_platform != target_platform]
-    - graphite2  # [build_platform != target_platform]
+    - {{ compiler("cxx") }}
+    - cairo           # [build_platform != target_platform]
+    - glib            # [build_platform != target_platform]
+    - freetype        # [build_platform != target_platform]
+    - icu             # [build_platform != target_platform]
+    - graphite2       # [build_platform != target_platform]
+    # needed for development files:
+    - expat           # [build_platform != target_platform]
+    - xorg-xorgproto  # [build_platform != target_platform]
+    - zlib            # [build_platform != target_platform]
   host:
     - cairo
-    - expat  # need to name this explicitly to get the development files
     - glib
     - freetype
     - icu
     - graphite2
+    # needed for development files:
+    - expat
+    - xorg-xorgproto
+    - zlib
   run:
     - cairo
     - freetype
