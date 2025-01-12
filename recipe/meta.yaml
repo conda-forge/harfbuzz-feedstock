@@ -1,6 +1,6 @@
 {% set name = "harfbuzz" %}
-{% set version = "10.1.0" %}
-{% set sha256 = "c758fdce8587641b00403ee0df2cd5d30cbea7803d43c65fddd76224f7b49b88" %}
+{% set version = "10.2.0" %}
+{% set sha256 = "11749926914fd488e08e744538f19329332487a6243eec39ef3c63efa154a578" %}
 
 package:
   name: {{ name }}
@@ -26,22 +26,28 @@ requirements:
     - ninja
     - pkg-config
     - pthread-stubs
-    - {{ compiler('c') }}
+    - {{ compiler("c") }}
     - {{ stdlib("c") }}
-    - {{ compiler('cxx') }}
-    - cairo      # [build_platform != target_platform]
-    - expat      # [build_platform != target_platform]
-    - glib       # [build_platform != target_platform]
-    - freetype   # [build_platform != target_platform]
-    - icu        # [build_platform != target_platform]
-    - graphite2  # [build_platform != target_platform]
+    - {{ compiler("cxx") }}
+    - cairo           # [build_platform != target_platform]
+    - glib            # [build_platform != target_platform]
+    - freetype        # [build_platform != target_platform]
+    - icu             # [build_platform != target_platform]
+    - graphite2       # [build_platform != target_platform]
+    # needed for development files:
+    - expat           # [build_platform != target_platform]
+    - xorg-xorgproto  # [build_platform != target_platform]
+    - zlib            # [build_platform != target_platform]
   host:
     - cairo
-    - expat  # need to name this explicitly to get the development files
     - glib
     - freetype
     - icu
     - graphite2
+    # needed for development files:
+    - expat
+    - xorg-xorgproto
+    - zlib
   run:
     - cairo
     - freetype
