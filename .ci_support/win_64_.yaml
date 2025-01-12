@@ -22,3 +22,5 @@ icu:
 - '75'
 target_platform:
 - win-64
+zlib:
+- '1'
