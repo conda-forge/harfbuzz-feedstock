@@ -11,6 +11,7 @@ source:
   sha256: {{ sha256 }}
   patches:
     - gir-windows.patch  # [win]
+    - createfontdescriptors.patch  # [osx]
 
 build:
   number: 0
