@@ -1,24 +1,25 @@
-{% set name = "harfbuzz" %}
 {% set version = "11.0.0" %}
-{% set sha256 = "85178b78f0e405269bbc0c17a55545708d86dae63a85f04cd29f71dd422879a8" %}
 
 package:
-  name: {{ name }}
+  name: harfbuzz
   version: {{ version }}
 
 source:
   url: https://github.com/harfbuzz/harfbuzz/archive/{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 85178b78f0e405269bbc0c17a55545708d86dae63a85f04cd29f71dd422879a8
   patches:
     - gir-windows.patch  # [win]
     - createfontdescriptors.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   run_exports:
+    # "We will never break the ABI."
     # pretty excellent forward compatibility
     # https://abi-laboratory.pro/index.php?view=timeline&l=harfbuzz
-    - {{ pin_subpackage(name, max_pin='x') }}
+    # https://github.com/conda-forge/harfbuzz-feedstock/issues/123
+    # https://github.com/harfbuzz/harfbuzz/discussions/5245#discussioncomment-12728609
+    - harfbuzz >={{ version }}
 
 requirements:
   build:
