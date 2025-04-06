@@ -16,9 +16,10 @@ source:
 build:
   number: 0
   run_exports:
-    # pretty excellent forward compatibility
-    # https://abi-laboratory.pro/index.php?view=timeline&l=harfbuzz
-    - {{ pin_subpackage(name, max_pin='x') }}
+    # "We will never break the ABI."
+    # https://github.com/conda-forge/harfbuzz-feedstock/issues/123
+    # https://github.com/harfbuzz/harfbuzz/discussions/5245#discussioncomment-12728609
+    - harfbuzz >={{ version }}
 
 requirements:
   build:
