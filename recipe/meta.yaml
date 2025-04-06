@@ -10,11 +10,6 @@ source:
   patches:
     - gir-windows.patch  # [win]
     - createfontdescriptors.patch  # [osx]
-    # 2025/03 - hmaarrfk
-    # Not sure why, this seems to be causing fatal errors during
-    # compilation with OSX
-    # https://github.com/harfbuzz/harfbuzz/issues/5252
-    - remove_since_for_gobject.patch
 
 build:
   number: 1
