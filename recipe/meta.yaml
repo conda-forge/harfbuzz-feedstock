@@ -1,20 +1,18 @@
-{% set name = "harfbuzz" %}
 {% set version = "11.3.2" %}
-{% set sha256 = "b6120ebc56238474f4030b2fbcfd235912b6adaf1477c088f4a399a942dd0ab0" %}
 
 package:
-  name: {{ name }}
+  name: harfbuzz
   version: {{ version }}
 
 source:
   url: https://github.com/harfbuzz/harfbuzz/archive/{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: b6120ebc56238474f4030b2fbcfd235912b6adaf1477c088f4a399a942dd0ab0
   patches:
     - gir-windows.patch  # [win]
     - createfontdescriptors.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # "We will never break the ABI."
     # https://github.com/conda-forge/harfbuzz-feedstock/issues/123
@@ -51,9 +49,7 @@ requirements:
     - xorg-xorgproto
     - zlib
   run:
-    - cairo
-    - freetype
-    - icu
+    # Still doesnt' have run export as of 2025/07/26
     - graphite2
 
 test:
