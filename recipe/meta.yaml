@@ -50,6 +50,7 @@ requirements:
     - zlib
   run:
     # Still doesn't have run export as of 2025/07/26
+    # https://github.com/conda-forge/graphite2-feedstock/pull/19
     - graphite2
 
 test:
