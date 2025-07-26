@@ -12,7 +12,7 @@ source:
     - createfontdescriptors.patch  # [osx]
 
 build:
-  number: 1
+  number: 0
   run_exports:
     # "We will never break the ABI."
     # https://github.com/conda-forge/harfbuzz-feedstock/issues/123
