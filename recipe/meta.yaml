@@ -12,7 +12,7 @@ source:
     - createfontdescriptors.patch  # [osx]
 
     # Without this, all downstream packages must depend on glib-2.0 to find
-    # harfbuzz, which is not idea...
+    # harfbuzz, which is not ideal...
     # https://github.com/conda-forge/conda-forge.github.io/issues/1880
     - 0001-Remove-requires-pricate-from-pc-files.patch
 
