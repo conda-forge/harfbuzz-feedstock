@@ -8,7 +8,7 @@ set -ex
 # burdening the recipe
 # https://github.com/conda-forge/harfbuzz-feedstock/pull/146
 # https://github.com/conda-forge/conda-forge.github.io/issues/1880
-find "${PREIFX}/lib/pkgconfig" -type f -name '*.pc' -exec sed -i.bak \
+find "${PREFIX}/lib/pkgconfig" -type f -name '*.pc' -exec sed -i.bak \
     -e '/^Requires\.private/d' \
     -e '/^Libs\.private/d' \
     {} +
@@ -93,3 +93,16 @@ ninja -C builddir install -j ${CPU_COUNT}
 pushd $PREFIX
 rm -rf share/gtk-doc
 popd
+
+# Remove any added .private configuration in the harfbuzz.pc files 
+# Requires.private and Libs.private
+# Are not meaningful in the context of shared libraries for conda-forge
+# We thus "remove them" outright to avoid
+# burdening the recipe
+# https://github.com/conda-forge/harfbuzz-feedstock/pull/146
+# https://github.com/conda-forge/conda-forge.github.io/issues/1880
+find "${PREFIX}/lib/pkgconfig" -type f -name '*.pc' -exec sed -i.bak \
+    -e '/^Requires\.private/d' \
+    -e '/^Libs\.private/d' \
+    {} +
+find "${PREFIX}/lib/pkgconfig" -type f -name '*.bak' -delete
