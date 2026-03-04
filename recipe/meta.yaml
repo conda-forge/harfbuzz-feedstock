@@ -12,7 +12,7 @@ source:
     - createfontdescriptors.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # "We will never break the ABI."
     # https://github.com/conda-forge/harfbuzz-feedstock/issues/123
@@ -34,23 +34,11 @@ requirements:
     - freetype        # [build_platform != target_platform]
     - icu             # [build_platform != target_platform]
     - graphite2       # [build_platform != target_platform]
-    # needed for development files:
-    - expat           # [build_platform != target_platform]
-    - xorg-xorgproto  # [build_platform != target_platform]
-    - zlib            # [build_platform != target_platform]
   host:
     - cairo
     - glib
     - freetype
     - icu
-    - graphite2
-    # needed for development files:
-    - expat
-    - xorg-xorgproto
-    - zlib
-  run:
-    # Still doesn't have run export as of 2025/07/26
-    # https://github.com/conda-forge/graphite2-feedstock/pull/19
     - graphite2
 
 test:
