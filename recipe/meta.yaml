@@ -1,4 +1,4 @@
-{% set version = "13.2.0" %}
+{% set version = "13.2.1" %}
 
 package:
   name: harfbuzz
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/harfbuzz/harfbuzz/archive/{{ version }}.tar.gz
-  sha256: 8a6749b96a838cdab2b1f592cedfae7c45cd77f0b358aed6217fce6bfc5b4521
+  sha256: 2a5c0351d856bca39626a1217f8c9c7f5e534a3f553717a1988dceebb10b5be7
   patches:
     - gir-windows.patch  # [win]
     - createfontdescriptors.patch  # [osx]
