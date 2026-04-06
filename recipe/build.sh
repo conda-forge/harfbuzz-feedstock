@@ -68,7 +68,9 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
   export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-load.sh
 fi
 
-# test objc++ workaround
+# Workaround needed starting 14.0.0 -- should be removable once
+# https://github.com/conda-forge/ctng-compiler-activation-feedstock/pull/187
+# is merged
 export OBJCXX="${OBJC}++"
 export OBJCXX_FOR_BUILD="${OBJC_FOR_BUILD}++"
 
