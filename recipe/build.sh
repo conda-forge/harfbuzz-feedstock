@@ -68,6 +68,10 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
   export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-load.sh
 fi
 
+# test objc++ workaround
+export OBJCXX="${OBJC}++"
+export OBJCXX_FOR_BUILD="${OBJC_FOR_BUILD}++"
+
 # NB: $MESON_ARGS sets buildtype, prefix, and libdir.
 meson setup builddir \
     ${MESON_ARGS} \
