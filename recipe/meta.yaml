@@ -11,8 +11,13 @@ source:
     - gir-windows.patch  # [win]
     - createfontdescriptors.patch  # [osx]
 
+    # Without this, all downstream packages must depend on glib-2.0 to find
+    # harfbuzz, which is not ideal...
+    # https://github.com/conda-forge/conda-forge.github.io/issues/1880
+    - 0001-Remove-requires-pricate-from-pc-files.patch
+
 build:
-  number: 0
+  number: 1
   run_exports:
     # "We will never break the ABI."
     # https://github.com/conda-forge/harfbuzz-feedstock/issues/123
@@ -48,10 +53,6 @@ requirements:
     - expat
     - xorg-xorgproto
     - zlib
-  run:
-    # Still doesn't have run export as of 2025/07/26
-    # https://github.com/conda-forge/graphite2-feedstock/pull/19
-    - graphite2
 
 test:
   requires:

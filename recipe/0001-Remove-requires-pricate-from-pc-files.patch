@@ -1,0 +1,49 @@
+From 083ddda865aa51e2994489e649da0b1e1ef16003 Mon Sep 17 00:00:00 2001
+From: Mark Harfouche <mark.harfouche@gmail.com>
+Date: Sun, 30 Nov 2025 17:16:26 -0500
+Subject: [PATCH] Remove requires pricate from pc files
+
+This causes the private libraries to be required for downstream packages
+https://github.com/conda-forge/conda-forge.github.io/issues/1880
+---
+ src/harfbuzz-cairo.pc.in | 1 -
+ src/harfbuzz-icu.pc.in   | 1 -
+ src/harfbuzz.pc.in       | 2 --
+ 3 files changed, 4 deletions(-)
+
+diff --git a/src/harfbuzz-cairo.pc.in b/src/harfbuzz-cairo.pc.in
+index 06ba8047c..df97ff151 100644
+--- a/src/harfbuzz-cairo.pc.in
++++ b/src/harfbuzz-cairo.pc.in
+@@ -8,6 +8,5 @@ Description: HarfBuzz cairo integration
+ Version: %VERSION%
+ 
+ Requires: harfbuzz = %VERSION%
+-Requires.private: cairo
+ Libs: -L${libdir} -lharfbuzz-cairo
+ Cflags: -I${includedir}/harfbuzz
+diff --git a/src/harfbuzz-icu.pc.in b/src/harfbuzz-icu.pc.in
+index 949869a35..5be5b2686 100644
+--- a/src/harfbuzz-icu.pc.in
++++ b/src/harfbuzz-icu.pc.in
+@@ -8,6 +8,5 @@ Description: HarfBuzz text shaping library ICU integration
+ Version: %VERSION%
+ 
+ Requires: harfbuzz
+-Requires.private: icu-uc
+ Libs: -L${libdir} -lharfbuzz-icu
+ Cflags: -I${includedir}/harfbuzz
+diff --git a/src/harfbuzz.pc.in b/src/harfbuzz.pc.in
+index 661251c2d..7f27bbbde 100644
+--- a/src/harfbuzz.pc.in
++++ b/src/harfbuzz.pc.in
+@@ -8,6 +8,4 @@ Description: HarfBuzz text shaping library
+ Version: %VERSION%
+ 
+ Libs: -L${libdir} -lharfbuzz
+-Libs.private: -lm %libs_private%
+-Requires.private: %requires_private%
+ Cflags: -I${includedir}/harfbuzz
+-- 
+2.51.0
+
