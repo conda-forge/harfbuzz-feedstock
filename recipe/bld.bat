@@ -1,14 +1,7 @@
 @ECHO ON
 
-:: By default Meson tries to run glib-mkenums with the %BUILD_PREFIX% Python, which fails.
-:: In order to override this, we need to use a Meson machine file, because otherwise
-:: Meson prioritizes the results from the glib-2.0 pkg-config file, which don't work.
-echo [binaries] >native_file.txt
-echo glib-mkenums = ['%PREFIX%\python.exe', '%LIBRARY_PREFIX%\bin\glib-mkenums'] >>native_file.txt
-
 meson setup builddir %MESON_ARGS% ^
     --backend=ninja ^
-    --native-file=native_file.txt ^
     --wrap-mode=nofallback ^
     -Dbenchmark=disabled ^
     -Dcairo=enabled ^

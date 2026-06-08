@@ -20,29 +20,35 @@ build:
 
 requirements:
   build:
-    - gobject-introspection
     - meson
     - ninja
     - pkg-config
-    - pthread-stubs
-    - {{ compiler("c") }}
     - {{ stdlib("c") }}
+    - {{ compiler("c") }}
     - {{ compiler("cxx") }}
     - cairo           # [build_platform != target_platform]
     - freetype        # [build_platform != target_platform]
     - glib            # [build_platform != target_platform]
+    - gobject-introspection  # [build_platform != target_platform]
     - graphite2       # [build_platform != target_platform]
     - icu             # [build_platform != target_platform]
+    - libpng          # [build_platform != target_platform]
+    - pthread-stubs   # [build_platform != target_platform]
     # needed for development files:
     - expat           # [build_platform != target_platform]
     - xorg-xorgproto  # [build_platform != target_platform]
     - zlib            # [build_platform != target_platform]
+    # necessary binaries that we need at build time in all cases
+    - g-ir-build-tools
   host:
     - cairo
     - freetype
     - glib
+    - gobject-introspection
     - graphite2
     - icu
+    - libpng
+    - pthread-stubs             # [unix]
     # needed for development files:
     - expat
     - xorg-xorgproto

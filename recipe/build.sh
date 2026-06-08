@@ -74,6 +74,13 @@ fi
 export OBJCXX="${OBJC}++"
 export OBJCXX_FOR_BUILD="${OBJC_FOR_BUILD}++"
 
+if [[ $build_platform != $target_platform ]]; then
+    # avoid picking up binaries from host env
+    echo "[binaries]"                                                                         > cross_file.txt
+    echo "g-ir-scanner = ['${BUILD_PREFIX}/bin/python', '${BUILD_PREFIX}/bin/g-ir-scanner']" >> cross_file.txt
+    export MESON_ARGS="$MESON_ARGS --cross-file=cross_file.txt"
+fi
+
 # NB: $MESON_ARGS sets buildtype, prefix, and libdir.
 meson setup builddir \
     ${MESON_ARGS} \
