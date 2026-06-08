@@ -18,6 +18,8 @@ glib:
 - '2'
 icu:
 - '78'
+libpng:
+- '1.6'
 target_platform:
 - win-64
 zlib:
