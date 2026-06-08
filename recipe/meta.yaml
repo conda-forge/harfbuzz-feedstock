@@ -9,7 +9,6 @@ source:
   sha256: 3c2a9006a7e1bf58737e557014d7882c554c628fb379a9f00008f5ea53dbbdfb
   patches:
     - gir-windows.patch  # [win]
-    - createfontdescriptors.patch  # [osx]
 
 build:
   number: 1
