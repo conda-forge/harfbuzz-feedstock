@@ -14,24 +14,24 @@ echo [binaries] >native_file.txt
 echo glib-mkenums = ['%PREFIX%\python.exe', '%LIBRARY_PREFIX%\bin\glib-mkenums'] >>native_file.txt
 
 %BUILD_PREFIX%\Scripts\meson setup builddir ^
-	--wrap-mode=nofallback ^
-	--buildtype=release ^
-	--prefix=%LIBRARY_PREFIX_M% ^
-	--backend=ninja ^
-	--native-file=native_file.txt ^
-	-Dcpp_std=c++17 ^
-	-Dglib=enabled ^
-	-Dgobject=enabled ^
-	-Dcairo=enabled ^
-	-Dicu=enabled ^
-	-Dgraphite2=enabled ^
-	-Dfreetype=enabled ^
-	-Dgdi=auto ^
-	-Dcoretext=auto ^
-	-Dintrospection=enabled ^
-	-Dtests=disabled ^
-	-Dbenchmark=disabled ^
-	-Ddocs=disabled
+    --backend=ninja ^
+    --buildtype=release ^
+    --native-file=native_file.txt ^
+    --prefix=%LIBRARY_PREFIX_M% ^
+    --wrap-mode=nofallback ^
+    -Dbenchmark=disabled ^
+    -Dcairo=enabled ^
+    -Dcoretext=auto ^
+    -Dcpp_std=c++17 ^
+    -Ddocs=disabled ^
+    -Dfreetype=enabled ^
+    -Dgdi=auto ^
+    -Dglib=enabled ^
+    -Dgobject=enabled ^
+    -Dgraphite2=enabled ^
+    -Dicu=enabled ^
+    -Dintrospection=enabled ^
+    -Dtests=disabled
 if errorlevel 1 exit 1
 
 ninja -v -C builddir -j %CPU_COUNT%
