@@ -56,7 +56,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
         --buildtype=release \
         --prefix=$BUILD_PREFIX \
         -Dlibdir=lib \
-        --wrap-mode=nofallback
+        --wrap-mode=nofallback || cat $SRC_DIR/native-build/meson-logs/meson-log.txt
 
     # This script would generate the functions.txt and dump.xml and save them
     # This is loaded in the native build. We assume that the functions exported
