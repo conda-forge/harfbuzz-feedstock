@@ -12,7 +12,7 @@ source:
     - createfontdescriptors.patch  # [osx]
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # "We will never break the ABI."
     # https://github.com/conda-forge/harfbuzz-feedstock/issues/123
@@ -52,9 +52,12 @@ requirements:
     # Still doesn't have run export as of 2025/07/26
     # https://github.com/conda-forge/graphite2-feedstock/pull/19
     - graphite2
+    # necessary for pkg-config metadata
+    - glib  # [win]
 
 test:
   requires:
+    - pkg-config
     - pygobject
   commands:
     # Libraries/headers.
@@ -69,6 +72,9 @@ test:
     - if not exist %PREFIX%\Library\lib\girepository-1.0\HarfBuzz-0.0.typelib exit 1         # [win]
     # CLI tests.
     - hb-view --version  # [linux]
+
+    # test that pkg-config metadata is satisfied
+    - pkg-config --print-errors --exact-version "{{ version }}" harfbuzz
 
 about:
   home: https://harfbuzz.github.io/
