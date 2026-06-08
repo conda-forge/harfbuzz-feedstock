@@ -53,7 +53,8 @@ requirements:
     # https://github.com/conda-forge/graphite2-feedstock/pull/19
     - graphite2
     # necessary for pkg-config metadata
-    - glib  # [win]
+    - freetype
+    - glib      # [win]
 
 test:
   requires:
