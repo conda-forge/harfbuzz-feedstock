@@ -22,7 +22,6 @@ meson_config_args=(
     -Dgobject=enabled
     -Dgraphite2=enabled
     -Dicu=enabled
-    -Dintrospection=enabled
     -Dtests=disabled
 )
 
@@ -66,6 +65,16 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
     ninja -C native-build install -j ${CPU_COUNT}
   )
   export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-load.sh
+
+  # introspection is incompatible with cross-compilation...
+  meson_config_args+=(-Dintrospection=disabled)
+  # however, the required HarfBuzz-0.0.{gir,typelib} have already been created above; move them manually
+  mkdir -p $PREFIX/share/gir-1.0
+  mkdir -p $PREFIX/lib/girepository-1.0
+  cp $BUILD_PREFIX/share/gir-1.0/HarfBuzz-0.0.gir $PREFIX/share/gir-1.0/
+  cp $BUILD_PREFIX/lib/girepository-1.0/HarfBuzz-0.0.typelib $PREFIX/lib/girepository-1.0/
+else
+  meson_config_args+=(-Dintrospection=enabled)
 fi
 
 # Workaround needed starting 14.0.0 -- should be removable once
