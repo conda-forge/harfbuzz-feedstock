@@ -68,11 +68,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
 
   # introspection is incompatible with cross-compilation...
   meson_config_args+=(-Dintrospection=disabled)
-  # however, the required HarfBuzz-0.0.{gir,typelib} have already been created above; move them manually
-  mkdir -p $PREFIX/share/gir-1.0
-  mkdir -p $PREFIX/lib/girepository-1.0
-  cp $BUILD_PREFIX/share/gir-1.0/HarfBuzz-0.0.gir $PREFIX/share/gir-1.0/
-  cp $BUILD_PREFIX/lib/girepository-1.0/HarfBuzz-0.0.typelib $PREFIX/lib/girepository-1.0/
+  # ... files will be moved manually in install_pkg.sh
 else
   meson_config_args+=(-Dintrospection=enabled)
 fi
