@@ -61,7 +61,7 @@ outputs:
     files:
       - lib/libharfbuzz*.so*        # [linux]
       - lib/libharfbuzz*.dylib      # [osx]
-      - Library/bin/harfbuzz*.dll   # [linux]
+      - Library/bin/harfbuzz*.dll   # [win]
     requirements:
       build:
         - {{ stdlib("c") }}
