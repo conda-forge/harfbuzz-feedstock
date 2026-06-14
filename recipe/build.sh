@@ -68,7 +68,10 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
 
   # introspection is incompatible with cross-compilation...
   meson_config_args+=(-Dintrospection=disabled)
-  # ... files will be moved manually in install_pkg.sh
+  # ... files will be installed manually in install_pkg.sh;
+  # store in $SRC_DIR, because $BUILD_PREFIX gets regenerated
+  cp $BUILD_PREFIX/share/gir-1.0/HarfBuzz-0.0.gir $SRC_DIR/
+  cp $BUILD_PREFIX/lib/girepository-1.0/HarfBuzz-0.0.typelib $SRC_DIR/
 else
   meson_config_args+=(-Dintrospection=enabled)
 fi
