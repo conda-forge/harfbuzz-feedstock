@@ -97,9 +97,3 @@ meson setup builddir \
     --default-library=both \
     --wrap-mode=nofallback
 ninja -v -C builddir -j ${CPU_COUNT}
-ninja -C builddir install -j ${CPU_COUNT}
-
-
-pushd $PREFIX
-rm -rf share/gtk-doc
-popd

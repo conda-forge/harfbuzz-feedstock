@@ -1,7 +1,12 @@
 {% set version = "14.2.1" %}
 
+{% set libs = [
+    "harfbuzz", "harfbuzz-cairo", "harfbuzz-gobject", "harfbuzz-gpu",
+    "harfbuzz-icu", "harfbuzz-raster", "harfbuzz-subset", "harfbuzz-vector"]
+%}
+
 package:
-  name: harfbuzz
+  name: harfbuzz-split
   version: {{ version }}
 
 source:
@@ -12,11 +17,6 @@ source:
 
 build:
   number: 1
-  run_exports:
-    # "We will never break the ABI."
-    # https://github.com/conda-forge/harfbuzz-feedstock/issues/123
-    # https://github.com/harfbuzz/harfbuzz/discussions/5245#discussioncomment-12728609
-    - harfbuzz >={{ version }}
 
 requirements:
   build:
@@ -53,34 +53,105 @@ requirements:
     - expat
     - xorg-xorgproto
     - zlib
-  run:
-    # Still doesn't have run export as of 2025/07/26
-    # https://github.com/conda-forge/graphite2-feedstock/pull/19
-    - graphite2
-    # necessary for pkg-config metadata
-    - freetype
-    - glib      # [win]
 
-test:
-  requires:
-    - pkg-config
-    - pygobject
-  commands:
-    # Libraries/headers.
-    {% set libs = ["harfbuzz-cairo", "harfbuzz-gobject", "harfbuzz-icu", "harfbuzz-subset", "harfbuzz"] %}
-    {% for lib in libs %}
-    - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}    # [unix]
-    - if not exist %PREFIX%\Library\bin\{{ lib }}.dll exit 1       # [win]
-    {% endfor %}
-    - test -f $PREFIX/include/harfbuzz/hb-ft.h    # [not win]
-    - if not exist %PREFIX%\Library\include\harfbuzz\hb-ft.h exit 1         # [win]
-    - test -f $PREFIX/lib/girepository-1.0/HarfBuzz-0.0.typelib    # [unix]
-    - if not exist %PREFIX%\Library\lib\girepository-1.0\HarfBuzz-0.0.typelib exit 1         # [win]
-    # CLI tests.
-    - hb-view --version  # [linux]
+outputs:
+  - name: libharfbuzz
+    script: install_pkg.sh   # [unix]
+    script: install_pkg.bat  # [win]
+    files:
+      - lib/libharfbuzz*.so*        # [linux]
+      - lib/libharfbuzz*.dylib      # [osx]
+      - Library/bin/harfbuzz*.dll   # [linux]
+    requirements:
+      build:
+        - {{ stdlib("c") }}
+        - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
+        - meson
+        - ninja
+      host:
+        - cairo
+        - freetype
+        - glib
+        - gobject-introspection
+        - graphite2
+        - icu
+        - libpng
+        - pthread-stubs             # [unix]
+    test:
+      commands:
+        # shared ibraries
+        {% for lib in libs %}
+        - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}      # [unix]
+        - if not exist %LIBRARY_BIN%\{{ lib }}.dll exit 1   # [win]
+        {% endfor %}
 
-    # test that pkg-config metadata is satisfied
-    - pkg-config --print-errors --exact-version "{{ version }}" harfbuzz
+  - name: libharfbuzz-devel
+    script: install_pkg.sh   # [unix]
+    script: install_pkg.bat  # [win]
+    build:
+      run_exports:
+        # "We will never break the ABI."
+        # https://github.com/conda-forge/harfbuzz-feedstock/issues/123
+        # https://github.com/harfbuzz/harfbuzz/discussions/5245#discussioncomment-12728609
+        - libharfbuzz >={{ version }}
+    requirements:
+      build:
+        - {{ stdlib("c") }}
+        - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
+        - meson
+        - ninja
+      host:
+        - {{ pin_subpackage("libharfbuzz", exact=True) }}
+        - cairo
+        - freetype
+        - glib
+        - gobject-introspection
+        - graphite2
+        - icu
+        - libpng
+        - pthread-stubs             # [unix]
+      run:
+        - {{ pin_subpackage("libharfbuzz", exact=True) }}
+        # necessary for pkg-config metadata
+        - freetype
+        - glib      # [win]
+    test:
+      requires:
+        - pkg-config
+        - pygobject
+      commands:
+        # Headers
+        - test -f $PREFIX/include/harfbuzz/hb-ft.h              # [unix]
+        - if not exist %LIBRARY_INC%\harfbuzz\hb-ft.h exit 1    # [win]
+
+        # gobject-introspection metadata
+        - test -f $PREFIX/lib/girepository-1.0/HarfBuzz-0.0.typelib                 # [unix]
+        - test -f $PREFIX/share/gir-1.0/HarfBuzz-0.0.gir                            # [unix]
+        - if not exist %LIBRARY_LIB%\girepository-1.0\HarfBuzz-0.0.typelib exit 1   # [win]
+        - if not exist %LIBRARY_PREFIX%\share\gir-1.0\HarfBuzz-0.0.gir exit 1       # [win]
+
+        # CLI tests.
+        - hb-view --version
+
+        # test that pkg-config metadata is satisfied
+        - pkg-config --print-errors --exact-version "{{ version }}" harfbuzz
+
+  # compatibility wrapper
+  - name: harfbuzz
+    build:
+      run_exports:
+        # see above
+        - libharfbuzz >={{ version }}
+    requirements:
+      host:
+        - {{ pin_subpackage("libharfbuzz-devel", exact=True) }}
+      run:
+        - {{ pin_subpackage("libharfbuzz-devel", exact=True) }}
+    test:
+      commands:
+        - echo "pure metapackage"
 
 about:
   home: https://harfbuzz.github.io/
@@ -99,3 +170,4 @@ extra:
     - pkgw
     - tschoonj
     - h-vetinari
+  feedstock-name: harfbuzz

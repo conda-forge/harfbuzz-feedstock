@@ -20,8 +20,3 @@ if errorlevel 1 exit 1
 
 ninja -v -C builddir -j %CPU_COUNT%
 if errorlevel 1 exit 1
-
-ninja -C builddir install -j %CPU_COUNT%
-if errorlevel 1 exit 1
-
-del %LIBRARY_PREFIX%\bin\*.pdb
