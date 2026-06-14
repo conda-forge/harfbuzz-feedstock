@@ -70,6 +70,8 @@ outputs:
         - meson
         - ninja
         - pkg-config
+        # for bin/g-ir-scanner
+        - g-ir-build-tools
       host:
         - cairo
         - freetype
@@ -105,6 +107,8 @@ outputs:
         - meson
         - ninja
         - pkg-config
+        # for bin/g-ir-scanner
+        - g-ir-build-tools
       host:
         - {{ pin_subpackage("libharfbuzz", exact=True) }}
         - cairo
