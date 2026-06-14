@@ -69,6 +69,7 @@ outputs:
         - {{ compiler("cxx") }}
         - meson
         - ninja
+        - pkg-config
       host:
         - cairo
         - freetype
@@ -78,6 +79,7 @@ outputs:
         - icu
         - libpng
         - pthread-stubs             # [unix]
+        - zlib
     test:
       commands:
         # shared ibraries
@@ -102,6 +104,7 @@ outputs:
         - {{ compiler("cxx") }}
         - meson
         - ninja
+        - pkg-config
       host:
         - {{ pin_subpackage("libharfbuzz", exact=True) }}
         - cairo
@@ -112,6 +115,7 @@ outputs:
         - icu
         - libpng
         - pthread-stubs             # [unix]
+        - zlib
       run:
         - {{ pin_subpackage("libharfbuzz", exact=True) }}
         # necessary for pkg-config metadata
