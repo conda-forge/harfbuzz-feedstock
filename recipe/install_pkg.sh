@@ -1,6 +1,12 @@
 #!/bin/bash
 set -ex
 
+if [ -n "$OSX_ARCH" ] ; then
+    # The -dead_strip_dylibs option breaks g-ir-scanner here
+    export LDFLAGS="$(echo $LDFLAGS |sed -e "s/-Wl,-dead_strip_dylibs//g")"
+    export LDFLAGS_LD="$(echo $LDFLAGS_LD |sed -e "s/-dead_strip_dylibs//g")"
+fi
+
 ninja -C builddir install -j ${CPU_COUNT}
 
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
