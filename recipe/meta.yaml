@@ -78,6 +78,7 @@ outputs:
         - glib                      # [build_platform != target_platform]
       host:
         - cairo
+        - expat                     # [win]
         - freetype
         - glib
         - gobject-introspection
@@ -120,6 +121,7 @@ outputs:
       host:
         - {{ pin_subpackage("libharfbuzz", exact=True) }}
         - cairo
+        - expat                     # [win]
         - freetype
         - glib
         - gobject-introspection
