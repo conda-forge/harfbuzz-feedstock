@@ -72,6 +72,8 @@ outputs:
         - pkg-config
         # for bin/g-ir-scanner
         - g-ir-build-tools
+        # for bin/g-ir-compiler
+        - g-ir-host-tools           # [osx]
         # for bin/glib-mkenums
         - glib                      # [build_platform != target_platform]
       host:
@@ -111,6 +113,8 @@ outputs:
         - pkg-config
         # for bin/g-ir-scanner
         - g-ir-build-tools
+        # for bin/g-ir-compiler
+        - g-ir-host-tools           # [osx]
         # for bin/glib-mkenums
         - glib                      # [build_platform != target_platform]
       host:
