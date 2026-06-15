@@ -66,7 +66,9 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == "1" ]]; then
   )
   export GI_CROSS_LAUNCHER=$BUILD_PREFIX/libexec/gi-cross-launcher-load.sh
 
-  # introspection is incompatible with cross-compilation...
+  # introspection is incompatible with cross-compilation with GI_CROSS_LAUNCHER
+  # (at least, we couldn't get it to work for linux-64 -> linux-ppc64le so far;
+  # osx-64 -> osx-arm64 used worked though before osx-arm64 went native)...
   meson_config_args+=(-Dintrospection=disabled)
   # ... files will be installed manually in install_pkg.sh;
   # store in $SRC_DIR, because $BUILD_PREFIX gets regenerated
