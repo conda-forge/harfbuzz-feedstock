@@ -42,24 +42,17 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_aarch64</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=407&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/harfbuzz-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>linux_ppc64le</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=407&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/harfbuzz-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
               <td>osx_64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=407&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/harfbuzz-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=407&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/harfbuzz-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -83,6 +76,8 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-harfbuzz-green.svg)](https://anaconda.org/conda-forge/harfbuzz) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/harfbuzz.svg)](https://anaconda.org/conda-forge/harfbuzz) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/harfbuzz.svg)](https://anaconda.org/conda-forge/harfbuzz) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/harfbuzz.svg)](https://anaconda.org/conda-forge/harfbuzz) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libharfbuzz-green.svg)](https://anaconda.org/conda-forge/libharfbuzz) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libharfbuzz.svg)](https://anaconda.org/conda-forge/libharfbuzz) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libharfbuzz.svg)](https://anaconda.org/conda-forge/libharfbuzz) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libharfbuzz.svg)](https://anaconda.org/conda-forge/libharfbuzz) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libharfbuzz--devel-green.svg)](https://anaconda.org/conda-forge/libharfbuzz-devel) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libharfbuzz-devel.svg)](https://anaconda.org/conda-forge/libharfbuzz-devel) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libharfbuzz-devel.svg)](https://anaconda.org/conda-forge/libharfbuzz-devel) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libharfbuzz-devel.svg)](https://anaconda.org/conda-forge/libharfbuzz-devel) |
 
 Installing harfbuzz
 ===================
@@ -94,16 +89,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `harfbuzz` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `harfbuzz, libharfbuzz, libharfbuzz-devel` can be installed with `conda`:
 
 ```
-conda install harfbuzz
+conda install harfbuzz libharfbuzz libharfbuzz-devel
 ```
 
 or with `mamba`:
 
 ```
-mamba install harfbuzz
+mamba install harfbuzz libharfbuzz libharfbuzz-devel
 ```
 
 It is possible to list all of the versions of `harfbuzz` available on your platform with `conda`:
@@ -198,6 +193,7 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@h-vetinari](https://github.com/h-vetinari/)
 * [@ocefpaf](https://github.com/ocefpaf/)
 * [@pkgw](https://github.com/pkgw/)
 * [@tschoonj](https://github.com/tschoonj/)
