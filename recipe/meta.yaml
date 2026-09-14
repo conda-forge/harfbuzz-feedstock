@@ -1,10 +1,5 @@
 {% set version = "14.4.0" %}
 
-{% set libs = [
-    "harfbuzz", "harfbuzz-cairo", "harfbuzz-gobject", "harfbuzz-gpu",
-    "harfbuzz-icu", "harfbuzz-raster", "harfbuzz-subset", "harfbuzz-vector"]
-%}
-
 package:
   name: harfbuzz-split
   version: {{ version }}
@@ -16,7 +11,7 @@ source:
     - patches/0001-Revert-meson-fix-generating-introspection.patch  # [win]
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
@@ -56,8 +51,7 @@ requirements:
 
 outputs:
   - name: libharfbuzz
-    script: install_pkg.sh  # [unix]
-    script: install_pkg.bat  # [win]
+    script: {{ "install_pkg.bat" if win else "install_pkg.sh" }}
     files:
       - lib/libharfbuzz*.so*        # [linux]
       - lib/libharfbuzz*.dylib      # [osx]
@@ -89,15 +83,26 @@ outputs:
         - zlib
     test:
       commands:
-        # shared ibraries
-        {% for lib in libs %}
-        - test -f $PREFIX/lib/lib{{ lib }}${SHLIB_EXT}      # [unix]
-        - if not exist %LIBRARY_BIN%\{{ lib }}.dll exit 1   # [win]
-        {% endfor %}
+        # Shared libraries
+        - test -f $PREFIX/lib/libharfbuzz${SHLIB_EXT}  # [unix]
+        - if not exist %LIBRARY_BIN%\harfbuzz.dll exit 1  # [win]
+        - test -f $PREFIX/lib/libharfbuzz-cairo${SHLIB_EXT}  # [unix]
+        - if not exist %LIBRARY_BIN%\harfbuzz-cairo.dll exit 1  # [win]
+        - test -f $PREFIX/lib/libharfbuzz-gobject${SHLIB_EXT}  # [unix]
+        - if not exist %LIBRARY_BIN%\harfbuzz-gobject.dll exit 1  # [win]
+        - test -f $PREFIX/lib/libharfbuzz-gpu${SHLIB_EXT}  # [unix]
+        - if not exist %LIBRARY_BIN%\harfbuzz-gpu.dll exit 1  # [win]
+        - test -f $PREFIX/lib/libharfbuzz-icu${SHLIB_EXT}  # [unix]
+        - if not exist %LIBRARY_BIN%\harfbuzz-icu.dll exit 1  # [win]
+        - test -f $PREFIX/lib/libharfbuzz-raster${SHLIB_EXT}  # [unix]
+        - if not exist %LIBRARY_BIN%\harfbuzz-raster.dll exit 1  # [win]
+        - test -f $PREFIX/lib/libharfbuzz-subset${SHLIB_EXT}  # [unix]
+        - if not exist %LIBRARY_BIN%\harfbuzz-subset.dll exit 1  # [win]
+        - test -f $PREFIX/lib/libharfbuzz-vector${SHLIB_EXT}  # [unix]
+        - if not exist %LIBRARY_BIN%\harfbuzz-vector.dll exit 1  # [win]
 
   - name: libharfbuzz-devel
-    script: install_pkg.sh  # [unix]
-    script: install_pkg.bat  # [win]
+    script: {{ "install_pkg.bat" if win else "install_pkg.sh" }}
     build:
       run_exports:
         # "We will never break the ABI."
@@ -139,7 +144,17 @@ outputs:
       requires:
         - pkg-config
         - pygobject
+        - {{ compiler("c") }}  # [win]
+      files:
+        - run_test.py  # [win]
+        - test-consumer.c  # [win]
+        - test-consumer.bat  # [win]
+      source_files:
+        - test/api/fonts/Inconsolata-Regular.abc.ttf  # [win]
+        - test/COPYING  # [win]
       commands:
+        - python run_test.py  # [win]
+        - call test-consumer.bat  # [win]
         # Headers
         - test -f $PREFIX/include/harfbuzz/hb-ft.h              # [unix]
         - if not exist %LIBRARY_INC%\harfbuzz\hb-ft.h exit 1    # [win]
