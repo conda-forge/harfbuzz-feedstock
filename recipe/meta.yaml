@@ -63,7 +63,7 @@ outputs:
       - lib/libharfbuzz*.dylib      # [osx]
       - Library/bin/harfbuzz*.dll   # [win]
       - lib/girepository-1.0/HarfBuzz-0.0.typelib        # [linux or osx]
-      - Library/girepository-1.0/HarfBuzz-0.0.typelib    # [win]
+      - Library/lib/girepository-1.0/HarfBuzz-0.0.typelib    # [win]
     requirements:
       build:
         - {{ stdlib("c") }}
