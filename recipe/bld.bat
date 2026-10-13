@@ -10,6 +10,7 @@ meson setup builddir %MESON_ARGS% ^
     -Ddocs=disabled ^
     -Dfreetype=enabled ^
     -Dgdi=auto ^
+    -Ddirectwrite=enabled ^
     -Dglib=enabled ^
     -Dgobject=enabled ^
     -Dgraphite2=enabled ^
