@@ -16,7 +16,7 @@ source:
     - patches/0001-Revert-meson-fix-generating-introspection.patch  # [win]
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
